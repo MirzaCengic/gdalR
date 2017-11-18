@@ -125,7 +125,7 @@ get_changes <- function(x, y, size, outpath, outfile,
   # Check the bigtiff argument in gdal function
   x_rcl <- GDAL_mosaic_tiles(outfile, folder_path = outdir, large_tif = TRUE, return_raster = TRUE)
   
-  x_rcl_points <- raster::rasterToPoints(x_rcl, sp = spatial) # FINISH!
+  x_rcl_points <- raster::rasterToPoints(x_rcl, fun = function(x){x == 1}, sp = spatial) # FINISH!
   return(x_rcl_points)
   
 }
