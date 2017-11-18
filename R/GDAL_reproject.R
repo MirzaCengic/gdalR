@@ -29,7 +29,7 @@ unlink(gsub(pkgmaker::file_extension(outfile), "vrt", outfile))
 }
 
 #EX
-esa <- "/vol/milkun1/Mirza_Cengic/Data_RAW/ESA_CCI/TIFF/YearByYear/ESACCI-LC-L4-LCCS-Map-300m-P1Y-2002-v2.0.7.tif"
-out <- "/vol/milkun1/Mirza_Cengic/Projects/Land_use/Data/Mask/LC_mollweide.tif"
-proj <- "+proj=moll +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
-GDAL_reproject(esa, out, crs_target = proj, method = "near")
+# esa <- "/vol/milkun1/Mirza_Cengic/Data_RAW/ESA_CCI/TIFF/YearByYear/ESACCI-LC-L4-LCCS-Map-300m-P1Y-2002-v2.0.7.tif"
+# out <- "/vol/milkun1/Mirza_Cengic/Projects/Land_use/Data/Mask/LC_mollweide.tif"
+# proj <- "+proj=moll +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
+# GDAL_reproject(esa, out, crs_target = proj, method = "near")
