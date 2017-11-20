@@ -4,9 +4,6 @@
 
 GDAL_algebra <- function(input1, input2, outfile = "", operation, format = "GTiff", return_raster = FALSE, overwrite = FALSE)
 {
-
-stopifnot(operation)
-
   if(file.exists(outfile)) 
   {
     if(overwrite == TRUE)
