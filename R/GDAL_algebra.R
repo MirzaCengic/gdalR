@@ -4,6 +4,9 @@
 
 GDAL_algebra <- function(input1, input2, outfile = "", operation, format = "GTiff", return_raster = FALSE, overwrite = FALSE)
 {
+
+stopifmissing(operation)
+
   if(file.exists(outfile)) 
   {
     if(overwrite == TRUE)
@@ -13,10 +16,13 @@ GDAL_algebra <- function(input1, input2, outfile = "", operation, format = "GTif
       stop("Outfile already exists --- Set overwrite = TRUE to overwrite.")
     }
   }
-  # to_run <- paste0(
-    # "gdal_calc.py -A", " ", input1, " ", "-B", " ", input2, " ",
-    # "--tyle Float32 --outfile=", outfile, " ", "--format=", format," ", "--calc=", '\"', operation, '\"')
-  
+ 
+# If input is raster, extract the file path 
+  if (inherits(input1, "Raster"))
+{
+  input1 <- input1@file@name
+  input2 <- input2@file@name
+ } 
   to_run <- paste0(
     "gdal_calc.py --co compress=LZW -A", " ", input1, " ", "-B", " ", input2, " ", 
     "--type Float32 --outfile=", outfile, " ", "--format=", format," ", "--calc=", '\"', operation, '\"')
