@@ -46,8 +46,12 @@ get_changes <- function(x, y, size, outpath, outfile,
 }
   ###########################
   # Get raster path
-  x <- x@file@name
+  	if (inherits(x, "Raster"))
+{
+x <- x@file@name
   y <- y@file@name
+  } 
+  
   
   x_info <- rgdal::GDALinfo(x)
   

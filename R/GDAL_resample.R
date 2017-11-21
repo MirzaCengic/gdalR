@@ -14,6 +14,12 @@ GDAL_resample <- function(infile, outfile, target_resolution, method, large_tif 
     stop("Resampling method not available.")
     }
   
+  # If input is raster, extract the file path 
+  if (inherits(infile, "Raster"))
+{
+  infile <- infile@file@name
+ } 
+  
 resample_command <- paste0("gdalwarp -multi -of vrt -tr ", " ", target_resolution, " ", target_resolution, " -r ", method, " ",
  infile, " ", gsub(pkgmaker::file_extension(outfile), "vrt", outfile))
  

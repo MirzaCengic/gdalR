@@ -1,19 +1,24 @@
 ################################################
 # Function for reprojecting rasters with GDAL
 # Change default CRS, change reprojection method, 
-GDAL_reproject <- function(input, outfile, crs_target, method, return_raster = FALSE)
+GDAL_reproject <- function(infile, outfile, crs_target, method, return_raster = FALSE)
 {
  if (!method %in% c("near", "bilinear", "cubic", "cubicspline", "lanczos",
                      "average", "mode", "max", "min", "med", "q1", "q3")) {
     stop("Resampling method not available.")
     }
 
+	if (inherits(infile, "Raster"))
+{
+  infile <- infile@file@name
+ } 
+	
 proj.cmd.warp <- paste0("gdalwarp -t_srs", " ", "'",
  crs_target,"'" , " ","-r", " ", method, " ", "-of vrt")
 
-print(paste(proj.cmd.warp, input, gsub(pkgmaker::file_extension(outfile), "vrt", outfile)))
+print(paste(proj.cmd.warp, infile, gsub(pkgmaker::file_extension(outfile), "vrt", outfile)))
 # Reproject to vrt in order to conserve space
-system(command = paste(proj.cmd.warp, input, gsub(pkgmaker::file_extension(outfile), "vrt", outfile)))
+system(command = paste(proj.cmd.warp, infile, gsub(pkgmaker::file_extension(outfile), "vrt", outfile)))
 # Load and transform to tiff
 system(paste("gdal_translate -co compress=LZW", gsub(pkgmaker::file_extension(outfile), "vrt", outfile),
 outfile))

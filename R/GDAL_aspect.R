@@ -3,6 +3,11 @@
 GDAL_aspect <- function(infile, outfile, zero_flat = TRUE, return_raster = FALSE)
 {
   
+  	if (inherits(infile, "Raster"))
+{
+  infile <- infile@file@name
+ } 
+  
   if(isTRUE(zero_flat))
   {  
     GDAL_call <- paste0("gdaldem aspect -compute_edges -zero_for_flat", " ", infile, " ", outfile)

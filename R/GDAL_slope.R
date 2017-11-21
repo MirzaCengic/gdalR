@@ -4,6 +4,11 @@
 GDAL_slope <- function(infile, outfile, degrees_unit = TRUE, return_raster = FALSE)
 {
   
+  	if (inherits(infile, "Raster"))
+{
+  infile <- infile@file@name
+ } 
+  
   if(isTRUE(degrees_unit))
   {  
     GDAL_call <- paste0("gdaldem slope -compute_edges -s 111120", " ", infile, " ", outfile)
