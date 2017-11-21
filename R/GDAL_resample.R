@@ -6,7 +6,7 @@
 
 
 #############
-GDAL_resample <- function(infile, outfile, target_resolution, method, large_tif = FALSE)
+GDAL_resample <- function(infile, outfile, target_resolution, method, large_tif = FALSE, return_raster = FALSE)
 {
   
  if (!method %in% c("near", "bilinear", "cubic", "cubicspline", "lanczos",
@@ -37,6 +37,11 @@ resample_command <- paste0("gdalwarp -multi -of vrt -tr ", " ", target_resolutio
   # Remove vrt
   unlink(gsub(pkgmaker::file_extension(outfile), "vrt", outfile))
 
+  if (isTRUE(return_raster))
+  {
+    return(raster(outfile))
+  }
+  
 }
 
 # Example
