@@ -39,9 +39,9 @@ resample_command <- paste0("gdalwarp -multi -of vrt -tr ", " ", target_resolutio
 
   if (isTRUE(return_raster))
   {
-    return(raster(outfile))
+    outfile <- raster::raster(outfile)
+	return(outfile)
   }
-  
 }
 
 # Example
