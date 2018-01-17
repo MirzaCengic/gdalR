@@ -12,3 +12,4 @@ Collection of functions that call GDAL externally on the milkun cluster
 * GDAL_resample() - resample raster
 * GDAL_slope() - calculate slope from DEM
 * GDAL_get_changes() - extract changes from two raster from different timesteps with gdal_calc.py. **Needs debugging!**
+* GDAL_raster_to_polygon() - convert raster to a polygon (ESRI Shapefile) using gdal_polygonize.py
