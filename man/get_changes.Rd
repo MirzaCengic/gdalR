@@ -23,7 +23,13 @@ get_changes(x, y, size, outpath, outfile, values_of_interest, spatial = FALSE,
 
 \item{crop_category_to_model}{crop category to subset. Numeric. Accepts vectors.}
 }
+\value{
+None.
+}
 \description{
 Extract changed cells from two rasters
 Get changes from two rasters from different periods. The function is suitable for parallel processing of very large rasters on computers with many cores.
+}
+\examples{
+Dunno
 }

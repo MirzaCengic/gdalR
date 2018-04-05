@@ -9,7 +9,7 @@
 #' @param shapefile_path Shapefile that is used to crop the raster. Disk path, \strong{not sp or sf object}.
 #' @param return_raster Logical. The function stores the raster in the \code{filename} argument path as a side-effect.
 #'
-#' @return
+#' @return Raster object. Only if \code{return_raster = TRUE}. Otherwise, the function side-effect is to save the file locally.
 #' @export
 #'
 #' @importFrom pkgmaker file_extension

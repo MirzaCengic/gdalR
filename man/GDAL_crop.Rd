@@ -15,6 +15,9 @@ GDAL_crop(input_raster, filename, shapefile_path, return_raster = TRUE)
 
 \item{return_raster}{Logical. The function stores the raster in the \code{filename} argument path as a side-effect.}
 }
+\value{
+Raster object. Only if \code{return_raster = TRUE}. Otherwise, the function side-effect is to save the file locally.
+}
 \description{
 The function crops rasters (to the shapefile boundary) using GDAL.
 }
