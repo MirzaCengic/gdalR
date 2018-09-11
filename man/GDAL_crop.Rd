@@ -4,7 +4,8 @@
 \alias{GDAL_crop}
 \title{Crop raster}
 \usage{
-GDAL_crop(input_raster, filename, shapefile_path, return_raster = TRUE)
+GDAL_crop(input_raster, filename, shapefile_path, large_tif = FALSE,
+  return_raster = TRUE)
 }
 \arguments{
 \item{input_raster}{Raster to be cropped (file path or Raster object). Input raster should be stored on disk for GDAL access.}
@@ -12,6 +13,8 @@ GDAL_crop(input_raster, filename, shapefile_path, return_raster = TRUE)
 \item{filename}{Output raster path.}
 
 \item{shapefile_path}{Shapefile that is used to crop the raster. Disk path, \strong{not sp or sf object}.}
+
+\item{large_tif}{Use \code{large_tif = TRUE} for large rasters (>4GB).}
 
 \item{return_raster}{Logical. The function stores the raster in the \code{filename} argument path as a side-effect.}
 }

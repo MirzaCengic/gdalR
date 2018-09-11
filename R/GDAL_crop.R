@@ -7,6 +7,7 @@
 #' @param input_raster Raster to be cropped (file path or Raster object). Input raster should be stored on disk for GDAL access.
 #' @param filename Output raster path.
 #' @param shapefile_path Shapefile that is used to crop the raster. Disk path, \strong{not sp or sf object}.
+#' @param large_tif Use \code{large_tif = TRUE} for large rasters (>4GB).
 #' @param return_raster Logical. The function stores the raster in the \code{filename} argument path as a side-effect.
 #'
 #' @return Raster object. Only if \code{return_raster = TRUE}. Otherwise, the function side-effect is to save the file locally.
@@ -24,7 +25,7 @@
 #' # Crop dem
 #' dem_cropped <- GDAL_crop(dem, filename = "/vol/milkun1/Mirza_Cengic/Temp/dem_we.tif", shapefile_path = we_eu)
 
-GDAL_crop <- function(input_raster, filename, shapefile_path, return_raster = TRUE)
+GDAL_crop <- function(input_raster, filename, shapefile_path, large_tif = FALSE, return_raster = TRUE)
 {
 
   if (missing(filename))
@@ -42,7 +43,13 @@ GDAL_crop <- function(input_raster, filename, shapefile_path, return_raster = TR
 
   # Make system calls
   cut_to_VRT <- paste0("gdalwarp -multi -cutline", " ", shapefile_path, " ", "-crop_to_cutline -of vrt", " ", input_raster, " ", outfile_vrt)
-  VRT2TIF <- paste0("gdal_translate -co compress=LZW", " ", outfile_vrt, " ", filename)
+
+  if (large_tif == TRUE)
+  {
+    VRT2TIF <- paste0("gdal_translate -co compress=LZW -co BIGTIFF=YES", " ", outfile_vrt, " ", filename)
+  } else {
+    VRT2TIF <- paste0("gdal_translate -co compress=LZW", " ", outfile_vrt, " ", filename)
+  }
 
   # Run sytem calls
   system(cut_to_VRT)
