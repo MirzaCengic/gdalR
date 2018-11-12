@@ -5,8 +5,8 @@
 \title{Extract changed cells from two rasters
 Get changes from two rasters from different periods. The function is suitable for parallel processing of very large rasters on computers with many cores.}
 \usage{
-get_changes(x, y, size, outpath, outfile, values_of_interest, spatial = FALSE,
-  number_of_cores = 2)
+get_changes(x, y, size, outpath, outfile, values_of_interest,
+  spatial = FALSE, number_of_cores = 2)
 }
 \arguments{
 \item{x}{t1 raster}

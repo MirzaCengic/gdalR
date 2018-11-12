@@ -2,10 +2,10 @@
 % Please edit documentation in R/GDAL_resample.R
 \name{GDAL_resample}
 \alias{GDAL_resample}
-\title{Title}
+\title{Resample raster}
 \usage{
-GDAL_resample(infile, outfile, target_resolution, method, large_tif = FALSE,
-  return_raster = FALSE)
+GDAL_resample(infile, outfile, target_resolution, method,
+  large_tif = FALSE, return_raster = FALSE)
 }
 \arguments{
 \item{infile}{Raster to be cropped (file path or Raster object). Input raster should be stored on disk for GDAL access.}
@@ -25,7 +25,8 @@ GDAL_resample(infile, outfile, target_resolution, method, large_tif = FALSE,
 Raster object. Only if \code{return_raster = TRUE}. Otherwise, the function side-effect is to save the file locally.
 }
 \description{
-Title
+Function does a system call to run gdal functions (works on unix systems where gdal can be called from terminal).
+Use only file path, function will not work with raster objects loaded in R environment.
 }
 \examples{
 none
