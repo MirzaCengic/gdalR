@@ -6,7 +6,10 @@
 
 
 #############
-#' Title
+#' Resample raster
+#'
+#' Function does a system call to run gdal functions (works on unix systems where gdal can be called from terminal).
+#' Use only file path, function will not work with raster objects loaded in R environment.
 #'
 #' @param infile Raster to be cropped (file path or Raster object). Input raster should be stored on disk for GDAL access.
 #' @param outfile Path and filename of the mosaicked output (format "E:/Folder/file.tif").
@@ -21,7 +24,7 @@
 #'
 #' @examples none
 #' @importFrom raster raster
-#' @importFrom pkgmaker file_extension
+#' @importFrom tools file_ext
 GDAL_resample <- function(infile, outfile, target_resolution, method, large_tif = FALSE, return_raster = FALSE)
 {
 
@@ -41,17 +44,17 @@ resample_command <- paste0("gdalwarp -multi -of vrt -tr ", " ", target_resolutio
 
   if (large_tif == TRUE)
   {
-    VRT2TIF <- paste0("gdal_translate -co compress=LZW -co BIGTIFF=YES", " ", gsub(pkgmaker::file_extension(outfile), "vrt", outfile),
-                      " ", gsub(pkgmaker::file_extension(outfile), "tif", outfile))
+    VRT2TIF <- paste0("gdal_translate -co compress=LZW -co BIGTIFF=YES", " ", gsub(tools::file_ext(outfile), "vrt", outfile),
+                      " ", gsub(tools::file_ext(outfile), "tif", outfile))
   } else {
-    VRT2TIF <- paste0("gdal_translate -co compress=LZW", " ", gsub(pkgmaker::file_extension(outfile), "vrt", outfile),
-                      " ", gsub(pkgmaker::file_extension(outfile), "tif", outfile))
+    VRT2TIF <- paste0("gdal_translate -co compress=LZW", " ", gsub(tools::file_ext(outfile), "vrt", outfile),
+                      " ", gsub(tools::file_ext(outfile), "tif", outfile))
   }
 
   system(resample_command)
   system(VRT2TIF)
   # Remove vrt
-  unlink(gsub(pkgmaker::file_extension(outfile), "vrt", outfile))
+  unlink(gsub(tools::file_ext(outfile), "vrt", outfile))
 
   if (isTRUE(return_raster))
   {
