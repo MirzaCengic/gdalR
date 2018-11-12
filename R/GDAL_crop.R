@@ -2,18 +2,18 @@
 
 #' Crop raster
 #'
-#' The function crops rasters (to the shapefile boundary) using GDAL.
+#' The function crops rasters (to the shapefile boundary) using GDAL. Use only filepaths (not rasters/shapefiles loaded in R environment).
 #'
-#' @param input_raster Raster to be cropped (file path or Raster object). Input raster should be stored on disk for GDAL access.
-#' @param filename Output raster path.
-#' @param shapefile_path Shapefile that is used to crop the raster. Disk path, \strong{not sp or sf object}.
-#' @param large_tif Use \code{large_tif = TRUE} for large rasters (>4GB).
+#' @param input_raster Character. Raster to be cropped (file path or Raster object). Input raster should be stored on disk for GDAL access.
+#' @param filename Character. Output raster path.
+#' @param shapefile_path Character. Filepath of a shapefile or geopackage. that is used to crop the raster. Disk path, \strong{not sp or sf object}.
+#' @param large_tif Logical. Use \code{large_tif = TRUE} for large rasters (>4GB).
 #' @param return_raster Logical. The function stores the raster in the \code{filename} argument path as a side-effect.
 #'
 #' @return Raster object. Only if \code{return_raster = TRUE}. Otherwise, the function side-effect is to save the file locally.
 #' @export
 #'
-#' @importFrom pkgmaker file_extension
+#' @importFrom tools file_ext
 #' @importFrom raster raster
 #' @examples
 #' library(gdalR)
@@ -34,7 +34,7 @@ GDAL_crop <- function(input_raster, filename, shapefile_path, large_tif = FALSE,
     warning("Argument filename is missing. Temporary raster file will be created.")
   }
   # Set vrt filename
-  outfile_vrt <- gsub(pkgmaker::file_extension(filename), "vrt", filename)
+  outfile_vrt <- gsub(tools::file_ext(filename), "vrt", filename)
 
   	if (inherits(input_raster, "Raster"))
 {

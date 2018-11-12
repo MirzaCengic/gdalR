@@ -29,5 +29,10 @@ Function does a system call to run gdal functions (works on unix systems where g
 Use only file path, function will not work with raster objects loaded in R environment.
 }
 \examples{
-none
+lc_info <- "/vol/milkun1/Mirza_Cengic/Data_RAW/ESA_CCI/TIFF/YearByYear/ESACCI-LC-L4-LCCS-Map-300m-P1Y-2002-v2.0.7.tif"
+out <- "/vol/milkun1/Mirza_Cengic/Projects/Land_use/Data/Predictors/Resampled/Soil_GDAL/Soil_AWCh.tif"
+awch <- "/vol/milkun1/Mirza_Cengic/Projects/Land_use/Data/Predictors/Original/Soil/Soil_AWCh.tif"
+res_lc <- rgdal::GDALinfo(lc_info)["res.x"]
+GDAL_resample(awch, outfile = out,
+target_resolution = res_lc, method = "average", large_tif = TRUE)
 }

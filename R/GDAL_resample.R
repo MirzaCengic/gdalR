@@ -22,9 +22,18 @@
 #' @return Raster object. Only if \code{return_raster = TRUE}. Otherwise, the function side-effect is to save the file locally.
 #' @export
 #'
-#' @examples none
+
 #' @importFrom raster raster
 #' @importFrom tools file_ext
+#'
+#' @examples
+#' lc_info <- "/vol/milkun1/Mirza_Cengic/Data_RAW/ESA_CCI/TIFF/YearByYear/ESACCI-LC-L4-LCCS-Map-300m-P1Y-2002-v2.0.7.tif"
+#' out <- "/vol/milkun1/Mirza_Cengic/Projects/Land_use/Data/Predictors/Resampled/Soil_GDAL/Soil_AWCh.tif"
+#' awch <- "/vol/milkun1/Mirza_Cengic/Projects/Land_use/Data/Predictors/Original/Soil/Soil_AWCh.tif"
+#' res_lc <- rgdal::GDALinfo(lc_info)["res.x"]
+#' GDAL_resample(awch, outfile = out,
+#' target_resolution = res_lc, method = "average", large_tif = TRUE)
+
 GDAL_resample <- function(infile, outfile, target_resolution, method, large_tif = FALSE, return_raster = FALSE)
 {
 
@@ -40,7 +49,7 @@ GDAL_resample <- function(infile, outfile, target_resolution, method, large_tif 
  }
 
 resample_command <- paste0("gdalwarp -multi -of vrt -tr ", " ", target_resolution, " ", target_resolution, " -r ", method, " ",
- infile, " ", gsub(pkgmaker::file_extension(outfile), "vrt", outfile))
+ infile, " ", gsub(tools::file_ext(outfile), "vrt", outfile))
 
   if (large_tif == TRUE)
   {
@@ -63,11 +72,5 @@ resample_command <- paste0("gdalwarp -multi -of vrt -tr ", " ", target_resolutio
   }
 }
 
-# Example
-# lc_info <- "/vol/milkun1/Mirza_Cengic/Data_RAW/ESA_CCI/TIFF/YearByYear/ESACCI-LC-L4-LCCS-Map-300m-P1Y-2002-v2.0.7.tif"
-# out <- "/vol/milkun1/Mirza_Cengic/Projects/Land_use/Data/Predictors/Resampled/Soil_GDAL/Soil_AWCh.tif"
-# awch <- "/vol/milkun1/Mirza_Cengic/Projects/Land_use/Data/Predictors/Original/Soil/Soil_AWCh.tif"
-# res_lc <- rgdal::GDALinfo(lc_info)["res.x"]
-# GDAL_resample(awch, outfile = out,
- # target_resolution = res_lc, method = "average", large_tif = TRUE)
+
 

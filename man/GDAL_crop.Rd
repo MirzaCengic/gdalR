@@ -8,13 +8,13 @@ GDAL_crop(input_raster, filename, shapefile_path, large_tif = FALSE,
   return_raster = TRUE)
 }
 \arguments{
-\item{input_raster}{Raster to be cropped (file path or Raster object). Input raster should be stored on disk for GDAL access.}
+\item{input_raster}{Character. Raster to be cropped (file path or Raster object). Input raster should be stored on disk for GDAL access.}
 
-\item{filename}{Output raster path.}
+\item{filename}{Character. Output raster path.}
 
-\item{shapefile_path}{Shapefile that is used to crop the raster. Disk path, \strong{not sp or sf object}.}
+\item{shapefile_path}{Character. Filepath of a shapefile or geopackage. that is used to crop the raster. Disk path, \strong{not sp or sf object}.}
 
-\item{large_tif}{Use \code{large_tif = TRUE} for large rasters (>4GB).}
+\item{large_tif}{Logical. Use \code{large_tif = TRUE} for large rasters (>4GB).}
 
 \item{return_raster}{Logical. The function stores the raster in the \code{filename} argument path as a side-effect.}
 }
@@ -22,7 +22,7 @@ GDAL_crop(input_raster, filename, shapefile_path, large_tif = FALSE,
 Raster object. Only if \code{return_raster = TRUE}. Otherwise, the function side-effect is to save the file locally.
 }
 \description{
-The function crops rasters (to the shapefile boundary) using GDAL.
+The function crops rasters (to the shapefile boundary) using GDAL. Use only filepaths (not rasters/shapefiles loaded in R environment).
 }
 \examples{
 library(gdalR)
