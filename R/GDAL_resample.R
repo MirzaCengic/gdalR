@@ -14,6 +14,7 @@
 #' @param infile Raster to be cropped (file path or Raster object). Input raster should be stored on disk for GDAL access.
 #' @param outfile Path and filename of the mosaicked output (format "E:/Folder/file.tif").
 #' @param target_resolution New resolution of raster.
+#' @param target_extent New raster extent.
 #' @param method Resampling method. One in c("near", "bilinear", "cubic", "cubicspline", "lanczos",
 #' "average", "mode", "max", "min", "med", "q1", "q3").
 #' @param large_tif Use \code{large_tif = TRUE} for large rasters (>4GB).
@@ -34,7 +35,7 @@
 #' GDAL_resample(awch, outfile = out,
 #' target_resolution = res_lc, method = "average", large_tif = TRUE)
 
-GDAL_resample <- function(infile, outfile, target_resolution, method, large_tif = FALSE, return_raster = FALSE)
+GDAL_resample <- function(infile, outfile, target_resolution, target_extent, method, large_tif = FALSE, return_raster = FALSE)
 {
 
  if (!method %in% c("near", "bilinear", "cubic", "cubicspline", "lanczos",
@@ -48,7 +49,7 @@ GDAL_resample <- function(infile, outfile, target_resolution, method, large_tif 
   infile <- infile@file@name
  }
 
-resample_command <- paste0("gdalwarp -multi -of vrt -tr ", " ", target_resolution, " ", target_resolution, " -r ", method, " ",
+resample_command <- paste0("gdalwarp -multi -of vrt -tr ", " ", target_resolution, " ", target_resolution, " -r ", method, " -te ", target_extent, " ",
  infile, " ", gsub(tools::file_ext(outfile), "vrt", outfile))
 
   if (large_tif == TRUE)
